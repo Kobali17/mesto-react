@@ -13,12 +13,19 @@ function App() {
     const [isDelPopupOpen, isDelPopupOpenSet] = React.useState(false);
     const [selectedCard, selectedCardSet] = React.useState(null);
 
+    function isPopupOpen() {
+        return isEditAvatarPopupOpen ||
+            isEditProfilePopupOpen ||
+            isAddPlacePopupOpen ||
+            isDelPopupOpen ||
+            selectedCard != null
+    }
+
     function handleCardClick(card) {
-        console.log(card)
         selectedCardSet(card)
     }
 
-    function handelDelClick() {
+    function handleDelClick() {
         isDelPopupOpenSet(true)
     }
 
@@ -28,7 +35,6 @@ function App() {
 
     function handleEditProfileClick() {
         isEditProfilePopupOpenSet(true)
-
     }
 
     function handleAddPlaceClick() {
@@ -41,15 +47,17 @@ function App() {
         isEditProfilePopupOpenSet(false)
         isDelPopupOpenSet(false)
         selectedCardSet(null)
-
     }
 
     return (
         <>
             <Header/>
+
             <Main onEditProfile={handleEditAvatarClick} onAddPlace={handleAddPlaceClick}
-                  onEditAvatar={handleEditProfileClick} onDel={handelDelClick} onImage={handleCardClick}/>
+                  onEditAvatar={handleEditProfileClick} onDel={handleDelClick} onImage={handleCardClick}/>
+
             <Footer/>
+
             <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} title="Редактировать профиль"
                            popupId="edit" formId="profile-form">
                 <input id="name" required placeholder="Имя" type="text" name="name" className="popup__input"
@@ -62,7 +70,6 @@ function App() {
                 <button type="submit" className="popup__save-button">Сохранить</button>
             </PopupWithForm>
 
-
             <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} title="Новое место" popupId="photo-add"
                            formId="photo-form">
                 <input id="place" required placeholder="Название" type="text" name="place"
@@ -74,7 +81,6 @@ function App() {
                 <span id="link-error" className="popup__input_error"/>
                 <button type="submit" className="popup__save-button">Создать</button>
             </PopupWithForm>
-
 
             <PopupWithForm onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} title="Обновить аватар"
                            popupId="avatar-popup" formId="photo-form">
@@ -90,7 +96,7 @@ function App() {
             </PopupWithForm>
 
             <ImagePopup onClose={closeAllPopups} card={selectedCard}/>
-            <div className="overlay"/>
+            <div className={`overlay ${isPopupOpen() ? 'popup_opened' : ''}`}/>
 
         </>
     );

@@ -4,18 +4,20 @@ import Card from "./Card";
 
 function Main(props) {
     const [userData, setUserData] = React.useState({userName: '', userAvatar: '', userDescription: ''});
-    api.getUserData().then((res) => {
-        setUserData({userName: res.name, userAvatar: res.avatar, userDescription: res.about})
-    }).catch((err) => {
-        console.log(err);
-    })
+    React.useEffect(() => {
+        api.getUserData().then((res) => {
+            setUserData({userName: res.name, userAvatar: res.avatar, userDescription: res.about})
+        }).catch((err) => {
+            console.log(err);
+        })
+        api.getInitialCards().then((res) => {
+            setCards(res)
+        }).catch((err) => {
+            console.log(err);
+        })
+    }, [])
 
     const [cards, setCards] = React.useState([]);
-    api.getInitialCards().then((res) => {
-        setCards(res)
-    }).catch((err) => {
-        console.log(err);
-    })
 
     return (
         <main className="main">
