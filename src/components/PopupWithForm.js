@@ -1,6 +1,7 @@
 import React from "react";
 
 function PopupWithForm(props) {
+
     return (
         <div id={props.popupId} className={`popup ${props.isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__container">
@@ -8,7 +9,8 @@ function PopupWithForm(props) {
                 <div className="popup__window">
                     <div className="popup__window-content">
                         <h2 className="popup__title">{props.title}</h2>
-                        <form id={props.formId} name="profileInfo" className="popup__form" method="get" noValidate>
+                        <form id={props.formId} onSubmit={props.onSubmit} name="profileInfo" className="popup__form"
+                              method="get" noValidate>
                             {props.children}
                         </form>
                     </div>

@@ -5,6 +5,7 @@
 @import url(__del-button/card__del-button.css);
 @import url(__like-container/card__like-container.css);
 @import url(__like-data/card__like-data.css);
+@import url(__del-button/card__del-button_hidden.css);
 
 .card {
     position: relative;

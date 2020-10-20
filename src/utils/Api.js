@@ -23,6 +23,15 @@ class Api {
         return this._fetch(`/cards/likes/${cardId}`, 'DELETE')
     }
 
+
+    changeLikeCardStatus(cardId, isLiked) {
+        if (isLiked) {
+            return this.takeCardLike(cardId)
+        } else {
+            return this.removeCardLke(cardId)
+        }
+    }
+
     delCard(cardId) {
         return this._fetch(`/cards/${cardId}`, 'DELETE')
     }
@@ -34,14 +43,14 @@ class Api {
     patchUserData(values) {
         return this._fetch('/users/me', 'PATCH', JSON.stringify({
             name: values.name,
-            about: values.job
+            about: values.about
         }))
 
     }
 
     patchUserAvatar(values) {
         return this._fetch('/users/me/avatar', 'PATCH', JSON.stringify({
-            avatar: values.link
+            avatar: values.avatar
         }))
     }
 
