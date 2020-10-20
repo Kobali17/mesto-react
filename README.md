@@ -1,3 +1,8 @@
+https://kobali17.github.io/mesto-react/.
+
+Не требуется дополниельных установок.
+Адаптив, медиазапросы.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
