@@ -12,7 +12,11 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext"
 
 function App() {
 
-    const [currentUser, setUserData] = React.useState({});
+    const [currentUser, setUserData] = React.useState({
+        name: '',
+        about: '',
+        avatar: ''
+    });
     React.useEffect(() => {
         api.getUserData().then((res) => {
             setUserData(res)
@@ -69,7 +73,6 @@ function App() {
         api.patchUserData(userData).then((res) => {
             setUserData(res);
             closeAllPopups()
-
         }).catch((err) => {
             console.log(err);
         })
@@ -119,9 +122,8 @@ function App() {
     }
 
     function handleAddPlaceSubmit(userCardData) {
-
         api.addUserCard(userCardData).then((newCard) => {
-            setCards([...cards, newCard]);
+            setCards([newCard, ...cards]);
             closeAllPopups()
         }).catch((err) => {
             console.log(err);
@@ -132,14 +134,15 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
 
             <Header/>
-            x
+
             <Main cards={cards} onCardLike={handleCardLike} onCardDelete={handleDelClick}
                   onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}
                   onEditAvatar={handleEditAvatarClick} onDel={handleDelClick} onImage={handleCardClick}/>
 
             <Footer/>
 
-            <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+            <EditProfilePopup inputText={currentUser} onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen}
+                              onClose={closeAllPopups}/>
 
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen}
                              onClose={closeAllPopups}/>
